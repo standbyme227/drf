@@ -1,27 +1,14 @@
-# from django.urls import path
-#
-# from . import views
-#
-# urlpatterns = [
-#     path('snippets/', views.snippet_list),
-#     path('snippets/<int:pk>/', views.snippet_detail),
-# ]
-
-from django.conf.urls import url
+from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from snippets import views
-from django.conf.urls import include
+
+from . import views
+
+app_name = 'snippets'
 
 urlpatterns = [
-    url(r'^snippets/$', views.SnippetList.as_view()),
-    url(r'^snippets/(?P<pk>[0-9]+)/$', views.SnippetDetail.as_view()),
-    url(r'^users/$', views.UserList.as_view()),
-    url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
-]
 
-urlpatterns += [
-    url(r'^api-auth/', include('rest_framework.urls',
-                               namespace='rest_framework')),
+    path('', views.SnippetList.as_view(), ),
+    path('<int:pk>/', views.SnippetDetail.as_view(), name=''),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
